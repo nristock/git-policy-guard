@@ -6,7 +6,7 @@ class NoEmptyCommitMessage(Policy):
         for rev in rev_list:
             commit_message = rev.commit_message().strip()
             if not commit_message:
-                logger.error("Found empty commit message in rev {0}".format(rev))
+                logger.error("Found empty commit message in rev $YELLOW${0}".format(rev))
                 return False
 
         return True

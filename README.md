@@ -16,3 +16,6 @@ Applies a list of policies before a ref gets updated and rejects the update if a
 Checks all names of changed files against a list of regex pattern. If a single pattern matches, the ref update will be rejected.  
 #### Parameters
 * blacklist_pattern (list\[str\]): A list of regex pattern to check for.
+
+### NoEmptyCommitMessage
+Rejects the ref update if an empty (as in no non-whitespace character) commit message is found.

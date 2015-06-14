@@ -1,0 +1,18 @@
+from plugins.PolicyCheck import PolicyCheck
+from policies.FileBlacklist import FileBlacklist
+from policies.NoEmptyCommitMessage import NoEmptyCommitMessage
+
+DEBUG = False
+DEBUG_PRE_RECEIVE = False
+DEBUG_UPDATE = False
+DEBUG_POST_RECEIVE = False
+
+LOG_FORMAT = '$BLUE$[HOOKS] $RESET$%(message)s'
+POLICY_LOG_FORMAT = '$BLUE$[$CYAN$POLICY$BLUE$:$CYAN${0}$BLUE$] $RESET$%(message)s'
+
+PLUGINS = [
+    PolicyCheck([
+        FileBlacklist(['.*\.zargo']),
+        NoEmptyCommitMessage()
+    ]),
+]

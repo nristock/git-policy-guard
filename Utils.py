@@ -1,5 +1,7 @@
+from itertools import groupby
 import os
 import subprocess
+import re
 
 
 class GitRev:
@@ -22,3 +24,29 @@ class GitRev:
 
     def hash(self):
         return self.rev
+
+    def is_null_rev(self):
+        reduced_name = ''.join(ch for ch, _ in groupby(self.rev))
+        return reduced_name == '0'
+
+
+class GitReference:
+    REF_INFO_REGEX = re.compile(r'refs/(.*)/(.*)')
+
+    def __init__(self, ref):
+        self.ref = ref
+        (self.type, self.name) = GitReference.parse_ref_info(ref)
+
+    @staticmethod
+    def parse_ref_info(ref):
+        ref_info = GitReference.REF_INFO_REGEX.match(ref)
+        return ref_info.group(1), ref_info.group(2)
+
+    def is_branch(self):
+        return self.type == 'heads'
+
+    def is_tag(self):
+        return self.type == 'tags'
+
+    def is_remote(self):
+        return self.type == 'remotes'

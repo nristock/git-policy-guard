@@ -15,4 +15,6 @@ PLUGINS = [
         FileBlacklist(['.*\.zargo']),
         NoEmptyCommitMessage()
     ]),
+    # Triggers job AwesomeProject_FeatureBranches each time someone pushes to a branch matching 'feature.*' and passes the ref name (= branch name) to the triggered jenkins job
+    JenkinsBuildTrigger('http://10.0.1.23:8080', 'AwesomeProject_FeatureBranches', 'refs/heads/feature.*', {'CHECKOUT_BRANCH': "$REF_NAME"})
 ]
